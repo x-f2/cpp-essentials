@@ -1,0 +1,30 @@
+# List all the executable names here to have them cleaned automatically
+APPNAMES := Run
+# Extra files you want removed
+EXTRAS :=
+
+CXX := g++
+CXXFLAGS := -std=c++11 -ggdb
+WARNINGS := -Wall -Wextra -Wpedantic
+LDFLAGS :=
+
+RM := rm -f
+
+all: $(APPNAMES)
+
+Run: main.o # List all object files in order
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+main.o: main.cc
+	$(CXX) $(CXXFLAGS) $(WARNINGS) -c $< -o $@
+
+# Executable Example: 
+# Execute: importfirst.o importsecond.o main.o
+#   $(CXX) $(CXXFLAGS) $^ -o $@
+
+# Object Example:
+# Source.o: Source.cc Dep1.h Dep2.h
+#   $(CXX) $(CXXFLAGS) $(WARNINGS) -c $< -o $@
+
+clean: # Removes executables, objects, and other unwanted files
+	$(RM) $(APPNAMES) $(EXTRAS) $(wildcard *.o)
